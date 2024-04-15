@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import '../css/listView.css';
 
 const ListView = () => {
     const [listId, setListId] = useState<string | null>(null);
+
+    const { id } = useParams(); // odczytanie ID
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -53,18 +56,6 @@ const ListView = () => {
         }
     };
 
-    // const odswiezIframe = () => {
-    //     const iframe = document.getElementById('grid-iframe') as HTMLIFrameElement;
-    //     if (iframe) {
-    //         iframe.src = iframe.src;
-    //     }
-    //     setTimeout(odswiezIframe, 10000);
-    // };
-
-    // useEffect(() => {
-    //     odswiezIframe();
-    // }, []);
-
     useEffect(() => {
         if (listId) {
             const data = new FormData();
@@ -78,11 +69,10 @@ const ListView = () => {
             <div className="mainFrame">
                 <div className="header">
                     <button className="deleteList" type="button" onClick={deleteList}>Usuń listę</button>
-                    <span>Nazwa listy</span>
+                    <span>Nazwa listy ID: {id}</span>
                     <button className="addFieldButton" type="button" onClick={addNewFieldWnd}><div className="addNew">+</div></button>
                 </div>
                 <div className="fields">
-                    {/* <iframe id="grid-iframe" src={`/listElems/?id=${listId}`} ></iframe> */}
                 </div>
             </div>
             <div className="newFieldWnd">

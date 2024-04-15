@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <Lists />,
       },
       {
-        path: "list",
+        path: "list/:id",
         element: <ListView />,
       },
       {

@@ -16,7 +16,7 @@ export default function Root() {
                 <a href={`/myLists`}>Listy</a>
               </li>
               <li>
-                <a href={`/list`}>Konkretna Lista</a>
+                <a href={`/list/123`}>Konkretna Lista</a>
               </li>
               <li>
                 <a href={`/profile`}>Profil</a>
