@@ -1,0 +1,193 @@
+.container {
+    width: 79vw;
+    flex-direction: column;
+  }
+  
+  
+  .overlap-group {
+    position: fixed;
+    width: 79vw;
+    height: 60vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+    left: 40vw;
+    top: 5vh;
+  }
+  
+  .page-header {
+    flex: 1;
+  }
+  
+  .login-text {
+    font-weight: 600;
+    color: #eef14d;
+    font-size: 15vh;
+    text-align: left;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .SignUp {
+    width: 20vw;
+    height: 13vh;
+    background-color: #eef14d;
+    border-radius: 100px;
+    margin-right: 43vw;
+    cursor: pointer;
+    font-weight: 600;
+    color: #000000;
+    font-size: 8vh;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .login {
+    position: fixed;
+    width: 30vw;
+    height: 40vh;
+    top: 25vh;
+    left: 35vw;
+  }
+  
+  form.login input[type="text"],
+  form.login input[type="password"] {
+      width: 100%;
+      margin: 1vh 0;
+      box-sizing: border-box;
+      background-color: #999999;
+      border-radius: 50px;
+      width: 100%;
+      height: 20%;
+      text-align: center;
+      font-size: 4vh;
+      font-style: normal;
+      line-height: normal;
+      font-weight: 600;
+  }
+  
+  form.login button {
+    background-color: #eef14d;
+    color: black;
+    margin: 1vh 0;
+    width: 100%;
+    height: 20%;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 6vh;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 600;
+  }
+  
+  .forgot {
+    position: fixed;
+    height: 10vh;
+    width: 30vw;
+    font-weight: 500;
+    color: #eef14d;
+    font-size: 6vh;
+    text-align: center;
+    text-decoration: underline;
+    margin: 50vh 40vw;
+  }
+  
+  
+  @media screen and (max-aspect-ratio: 16/9) {
+    .container{
+      width: 100%;
+      display: flex;
+    }
+  
+    .overlap-group {
+      position: fixed;
+      width: 100%;
+      height: 10vh;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: right;
+      left: 30%;
+      top: 5vh;
+    }
+    
+    .page-header {
+      flex: 1;
+      margin: 0 2vh;
+    }
+  
+    .login-text {
+      font-weight: 600;
+      color: #eef14d;
+      font-size: 8vh; /* Dostosowanie rozmiaru czcionki */
+      text-align: center;
+      letter-spacing: 0;
+      line-height: normal;
+      white-space: nowrap;
+    }
+    
+    .button-signUp {
+      width: 25vh; 
+      background-color: #eef14d;
+      border-radius: 50px;
+      padding: 2vh;
+      margin-right: 53vh;
+    }
+    
+    .SignUp {
+      font-weight: 600;
+      color: #000000;
+      font-size: 5vh; /* Dostosowanie rozmiaru czcionki */
+      text-align: center;
+      letter-spacing: 0;
+      line-height: normal;
+      white-space: nowrap;
+  
+    }
+    
+    .login {
+      position: fixed; /* Zmiana na relatywną, aby formularz był responsywny w kontekście rodzica */
+      width: 90%;
+      left: 0;
+    }
+    
+    form.login input[type="text"],
+    form.login input[type="password"] {
+      margin: 3px 2%; /* Zmniejszenie marginesu */
+      box-sizing: border-box;
+      background-color: #999999;
+      border-radius: 50px; /* Zmniejszenie zaokrąglenia narożników */
+      text-align: center;
+      font-size: 4vh; /* Dostosowanie rozmiaru czcionki */
+      font-weight: 600;
+      height: 10vh;
+    }
+    
+    form.login button {
+      margin: 3px 2%;
+      font-size: 6vh; /* Dostosowanie rozmiaru czcionki */
+      border-radius: 50px;
+      text-align: center;
+      font-weight: 600;
+      background-color: #eef14d;
+      height: 10vh;
+  
+    }
+    
+    .forgot {
+      position: fixed;
+      top: 60vh;
+      height: 10%; /* Zmniejszenie wysokości */
+      font-weight: 500;
+      color: #eef14d;
+      font-size: 5vh; /* Dostosowanie rozmiaru czcionki */
+      text-align: center;
+      text-decoration: underline;
+    }
+  }
+  
+  

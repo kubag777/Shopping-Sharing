@@ -1,0 +1,21 @@
+body {
+    background-color: #17181c;
+    display: flex;
+    width: 100%;
+    font-family: "Inter-SemiBold", Helvetica;
+    overflow: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @media screen and (max-aspect-ratio: 16/9) {
+    body {
+        background-color: #17181c;
+        display: flex;
+        flex-direction: column; /* Zmiana kierunku flex na kolumnowy dla lepszego dostosowania do urządzeń mobilnych */
+        align-items: center; 
+        overflow: hidden;
+      }
+    }

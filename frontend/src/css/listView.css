@@ -1,0 +1,146 @@
+.mainFrame {
+    margin-top: 1vh;
+    width: 79vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #eef14d;
+}
+
+.header{
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: right;
+    margin-left: 30vw;
+    height:calc(35px + 1.5vh);
+}
+
+.mainFrame>.header>span {
+    font-size:calc(20px + 1.5vw);
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+button.addFieldButton {
+    background-color: #eef14d;
+    border-radius: 100px;
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    font-size: 50px;
+}
+
+button.deleteList {
+    display: none;
+}
+
+button.deleteList.visible {
+    display: flex;
+    background-color: red;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 200px;
+    height: 70px;
+    font-size: 35px;
+    align-items: center;
+    justify-content: center;
+}
+
+.fields {
+    background: #eef14d;
+    display: flex;
+    margin: 0;
+    padding: 10px;
+    width: 65vw;
+    height: 75vh;
+    border-radius: 50px;
+    margin-top: 3vh;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(5, calc(6px + 10vh));
+}
+
+@media screen and (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+.oneList{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    border-radius: 12px;
+    background: #17181c;
+    overflow: hidden;
+    cursor: pointer;
+    height: 10vh;
+    width: 90vw;
+    margin: 1vh 5%;
+    color: #eef14d;
+    font-size: calc(8px + 2vh);
+    padding: 0 10px;
+}
+
+.newFieldWnd {
+    background: #eef14d;
+    border: black solid 2px;
+    border-radius: 20px;
+    display: none;
+    width: 400px;
+    height: 200px;
+}
+
+.newFieldWnd.visible {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+}
+
+.newFieldWnd>form {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    justify-content: center;
+    height: 50%;
+    width: 100%;
+}
+
+.newFieldWnd>form>input {
+    width: 100%;
+    margin: 1vh 0;
+    box-sizing: border-box;
+    background-color: #999999;
+    border-radius: 50px;
+    width: 80%;
+    margin-left: 10%;
+    height: 50%;
+    text-align: center;
+    font-size: 4vh;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 600;
+    border: black solid 2px;
+}
+
+.newFieldWnd>form>input[type="submit"]{
+    width: 40%;
+    margin-left: 30%;
+}
+
+iframe {
+    border: none; /* Usunięcie ramki */
+    width: 100%; /* Przykładowa szerokość */
+    height: 100%; /* Przykładowa wysokość */
+}
