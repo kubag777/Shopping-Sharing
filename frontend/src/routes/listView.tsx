@@ -53,17 +53,17 @@ const ListView = () => {
         }
     };
 
-    const odswiezIframe = () => {
-        const iframe = document.getElementById('grid-iframe') as HTMLIFrameElement;
-        if (iframe) {
-            iframe.src = iframe.src;
-        }
-        setTimeout(odswiezIframe, 10000);
-    };
+    // const odswiezIframe = () => {
+    //     const iframe = document.getElementById('grid-iframe') as HTMLIFrameElement;
+    //     if (iframe) {
+    //         iframe.src = iframe.src;
+    //     }
+    //     setTimeout(odswiezIframe, 10000);
+    // };
 
-    useEffect(() => {
-        odswiezIframe();
-    }, []);
+    // useEffect(() => {
+    //     odswiezIframe();
+    // }, []);
 
     useEffect(() => {
         if (listId) {

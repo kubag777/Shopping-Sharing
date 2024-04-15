@@ -1,0 +1,47 @@
+.profileMainFrame {
+    background: #eef14d;
+    display: flex;
+    flex-direction: row;
+    margin: 10vh 10vw;
+    padding: 5px;
+    width: 69vw;
+    border-radius: 50px;
+    margin-top: 10vh;
+    height: calc(80vh - 100px);
+    color: black;
+}
+
+.picture{
+    width: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+    width: calc(14vw + 14vh);
+    height: calc(14vw + 14vh);
+    border-radius: 100%;
+    border: solid 1px black;
+}
+
+.info{
+    width: 55vw;
+    display: flex;
+    flex-direction: column;
+    border: solid 2px black;
+    border-radius: 50px;
+    padding: 1vh 1vw;
+    height: calc(80vh - 110px);
+}
+
+
+h1{
+    font-size: calc(2.5vw + 2.5vh);
+    margin-block: 0;
+}
+
+h3{
+    margin-block: 0;
+    font-size: 3vw;
+}

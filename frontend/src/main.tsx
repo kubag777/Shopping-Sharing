@@ -11,6 +11,7 @@ import LoginPage from "./routes/login";
 import RegisterPage from "./routes/register";
 import Lists from "./routes/lists";
 import ListView from "./routes/listView";
+import ProfilePage from "./routes/profile";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "list",
         element: <ListView />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
       },
     ],
   },

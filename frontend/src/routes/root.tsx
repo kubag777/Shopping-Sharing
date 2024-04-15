@@ -18,6 +18,9 @@ export default function Root() {
               <li>
                 <a href={`/list`}>Konkretna Lista</a>
               </li>
+              <li>
+                <a href={`/profile`}>Profil</a>
+              </li>
             </ul>
           </nav>
         </div>

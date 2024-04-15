@@ -4,7 +4,6 @@ import '../css/lists.css';
 
 const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<any[]>([]);
-  const [showNewListWindow, setShowNewListWindow] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUserLists = async () => {
@@ -24,6 +23,13 @@ const Lists: React.FC = () => {
     fetchUserLists();
   }, []);
 
+  const addNewListWnd = () => {
+    const newListWnd = document.querySelector('.newListWnd');
+    if (newListWnd) {
+        newListWnd.classList.toggle('visible');
+    }
+  };
+
   const handleAddNewList = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -36,7 +42,6 @@ const Lists: React.FC = () => {
       });
 
       if (response.ok) {
-        setShowNewListWindow(false);
         window.location.reload();
       } else {
         console.error('Błąd dodawania listy.');
@@ -56,7 +61,7 @@ const Lists: React.FC = () => {
       <div className="mainFrame">
         <div className="headerClass">
           <span>Twoje listy</span>
-          <button type="button" onClick={() => setShowNewListWindow(true)}><div className="addNew">+</div></button>
+          <button type="button" onClick={addNewListWnd}><div className="addNew">+</div></button>
         </div>
 
         <div className="lists">
@@ -71,15 +76,13 @@ const Lists: React.FC = () => {
         </div>
       </div>
 
-      {showNewListWindow && (
-        <div className="newListWnd">
-          <form onSubmit={handleAddNewList} className="addNewList">
-            <input type="text" name="listName" placeholder="Nazwa Listy" />
-            <input type="text" name="friend" placeholder="ID znajomego" />
-            <input type="submit" value="Dodaj" />
-          </form>
-        </div>
-      )}
+      <div className="newListWnd">
+        <form onSubmit={handleAddNewList} className="addNewList">
+          <input type="text" name="listName" placeholder="Nazwa Listy" />
+          <input type="text" name="friend" placeholder="ID znajomego" />
+          <input type="submit" value="Dodaj" />
+        </form>
+      </div>
     </>
   );
 };
