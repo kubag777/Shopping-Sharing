@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\MyList;
+use App\Entity\MyLists;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MyList>
+ * @extends ServiceEntityRepository<MyLists>
  *
- * @method MyList|null find($id, $lockMode = null, $lockVersion = null)
- * @method MyList|null findOneBy(array $criteria, array $orderBy = null)
- * @method MyList[]    findAll()
- * @method MyList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MyLists|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MyLists|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MyLists[]    findAll()
+ * @method MyLists[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MyListRepository extends ServiceEntityRepository
+class MyListsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MyList::class);
+        parent::__construct($registry, MyLists::class);
     }
 
     //    /**
-    //     * @return MyList[] Returns an array of MyList objects
+    //     * @return MyLists[] Returns an array of MyLists objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -36,7 +36,7 @@ class MyListRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?MyList
+    //    public function findOneBySomeField($value): ?MyLists
     //    {
     //        return $this->createQueryBuilder('m')
     //            ->andWhere('m.exampleField = :val')

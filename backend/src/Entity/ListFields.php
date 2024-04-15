@@ -10,58 +10,43 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: ListFieldsRepository::class)]
 class ListFields
 {
-    #[ORM\ManyToOne(targetEntity: MyList::class, inversedBy: 'products')]
-    private MyList $myList;
-
-    public function getCategory(): ?MyList
-    {
-        return $this->myList;
-    }
-
-    public function setCategory(?MyList $myList): self
-    {
-        $this->myList = $myList;
-
-        return $this;
-    }
-
-
-
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: 'uuid')]
-    private ?Uuid $ListID = null;
+    #[ORM\ManyToOne(inversedBy: 'listFields')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MyLists $ListID = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?bool $isChecked = null;
+    private ?bool $IsChecked = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $cost = null;
 
-    #[ORM\Column(type: 'uuid')]
-    private ?Uuid $CreatorUserID = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $CreateUser = null;
 
-    #[ORM\Column(type: 'uuid', nullable: true)]
-    private ?Uuid $CheckedUserID = null;
+    #[ORM\ManyToOne(inversedBy: 'listFieldsChecked')]
+    private ?User $CheckUser = null;
 
     public function getId(): ?Uuid
     {
         return $this->id;
     }
 
-    public function getListID(): ?Uuid
+    public function getListID(): ?MyLists
     {
         return $this->ListID;
     }
 
-    public function setListID(Uuid $ListID): static
+    public function setListID(?MyLists $ListID): static
     {
         $this->ListID = $ListID;
 
@@ -82,12 +67,12 @@ class ListFields
 
     public function isChecked(): ?bool
     {
-        return $this->isChecked;
+        return $this->IsChecked;
     }
 
-    public function setChecked(bool $isChecked): static
+    public function setChecked(bool $IsChecked): static
     {
-        $this->isChecked = $isChecked;
+        $this->IsChecked = $IsChecked;
 
         return $this;
     }
@@ -104,26 +89,26 @@ class ListFields
         return $this;
     }
 
-    public function getCreatorUserID(): ?Uuid
+    public function getCreateUser(): ?User
     {
-        return $this->CreatorUserID;
+        return $this->CreateUser;
     }
 
-    public function setCreatorUserID(Uuid $CreatorUserID): static
+    public function setCreateUser(?User $CreateUser): static
     {
-        $this->CreatorUserID = $CreatorUserID;
+        $this->CreateUser = $CreateUser;
 
         return $this;
     }
 
-    public function getCheckedUserID(): ?Uuid
+    public function getCheckUser(): ?User
     {
-        return $this->CheckedUserID;
+        return $this->CheckUser;
     }
 
-    public function setCheckedUserID(?Uuid $CheckedUserID): static
+    public function setCheckUser(?User $CheckUser): static
     {
-        $this->CheckedUserID = $CheckedUserID;
+        $this->CheckUser = $CheckUser;
 
         return $this;
     }
