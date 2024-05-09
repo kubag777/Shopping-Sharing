@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-img{
+.profileimg{
     width: calc(14vw + 14vh);
     height: calc(14vw + 14vh);
     border-radius: 100%;

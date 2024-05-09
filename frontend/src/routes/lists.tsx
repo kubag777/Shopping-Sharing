@@ -1,25 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../css/global.css';
 import '../css/lists.css';
 
+interface List {
+  id: string;
+  Name: string;
+  CreateDate: string;
+  OwnerUserID: string;
+}
+
+
 const Lists: React.FC = () => {
-  const [userLists, setUserLists] = useState<any[]>([]);
+  const [userLists, setUserLists] = useState<List[]>([]);
 
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
-        const response = await fetch('/api/getUserLists');
-        if (response.ok) {
-          const data = await response.json();
-          setUserLists(data);
-        } else {
-          console.error('Błąd pobierania list.');
-        }
+        //const response = await axios.get('/api/my_lists'); // odrzuca przez brak ssl
+        const response = await axios.get('http://localhost:80/api/my_lists', {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }); 
+        console.log(response.data);
+        const lists: List[] = response.data['hydra:member'] || []; // Użyj domyślnej pustej tablicy, jeśli 'hydra:member' jest undefined
+        const formattedLists = lists.map((list: any) => ({
+          id: list['@id'].split('/').pop(),
+          Name: list.Name,
+          CreateDate: list.CreateDate,
+          OwnerUserID: list.OwnerUserID,
+        }));
+        setUserLists(formattedLists);
       } catch (error) {
-        console.error('Błąd sieci:', error);
+        console.error('Błąd pobierania list:', error);
       }
     };
-
+    
+    
     fetchUserLists();
   }, []);
 
@@ -67,9 +85,9 @@ const Lists: React.FC = () => {
         <div className="lists">
           {userLists.map((list) => (
             <div className="oneList" key={list.id} onClick={() => window.location.href = `listView/?id=${list.id}`}>
-              <div className="listIcon"><img src="/public/img/list.png" style={{ width: '80%' }} alt="List icon" /></div>
+              {<div className="listIcon"><img src="/public/list.png" style={{ width: '70%' }} alt="List icon" /></div>}
               <div className="listData">
-                <div className="nazwa">{list.name}</div>
+                <div className="nazwa">{list.Name}</div>
               </div>
             </div>
           ))}

@@ -13,6 +13,8 @@ import Lists from "./routes/lists";
 import ListView from "./routes/listView";
 import ProfilePage from "./routes/profile";
 
+
+
 const router = createBrowserRouter([
   {
     path: "/",

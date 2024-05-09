@@ -9,8 +9,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: MyListsRepository::class)]
+#[ApiResource]
 class MyLists
 {
     #[ORM\Id]

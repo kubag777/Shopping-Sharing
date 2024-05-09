@@ -6,8 +6,10 @@ use App\Repository\ListFieldsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ListFieldsRepository::class)]
+#[ApiResource]
 class ListFields
 {
     #[ORM\Id]

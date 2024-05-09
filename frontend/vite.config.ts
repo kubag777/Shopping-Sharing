@@ -11,6 +11,10 @@ export default defineConfig({
     host: true,
     strictPort: true,
     port: 5173,
+    proxy: {
+      '/api':'http://localhost:80',
+    },
+    cors: false,
   },
   optimizeDeps: {
     exclude: [

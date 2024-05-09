@@ -92,3 +92,7 @@ RUN set -eux; \
 	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync;
+
+ENV POST_URL https://jdbc.postgresql.org/download/postgresql-42.2.5.jar
+RUN wget ${POST_URL}
+RUN mv postgresql-42.2.5.jar /opt/spark/jars
