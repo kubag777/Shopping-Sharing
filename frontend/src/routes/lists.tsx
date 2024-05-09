@@ -18,11 +18,7 @@ const Lists: React.FC = () => {
     const fetchUserLists = async () => {
       try {
         //const response = await axios.get('/api/my_lists'); // odrzuca przez brak ssl
-        const response = await axios.get('http://localhost:80/api/my_lists', {
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }); 
+        const response = await axios.get('https://localhost:443/api/my_lists'); 
         console.log(response.data);
         const lists: List[] = response.data['hydra:member'] || []; // Użyj domyślnej pustej tablicy, jeśli 'hydra:member' jest undefined
         const formattedLists = lists.map((list: any) => ({
