@@ -11,12 +11,14 @@ interface RegisterProps {
 const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = '' */}) => {
   const [formData, setFormData] = useState({ email, /*name, surname,*/ password: '' });
 
+
+  
   const handleLoginClick = () => {
     window.location.href = 'login';
   };
-
+  
   const handleSubmit = async (event: React.FormEvent) => {
-    console.log(JSON.stringify(formData));
+    console.log(JSON.stringify({ ...formData, plainPassword: formData.password }));
     event.preventDefault();
     // Obsługa logiki rejestracji, np. wywołanie API
     try {
@@ -25,7 +27,7 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
         headers: {
           'Content-Type': 'application/ld+json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, plainPassword: formData.password })
       });
       if (response.ok) {
         window.location.href = 'myLists';
