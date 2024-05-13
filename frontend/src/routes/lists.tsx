@@ -19,6 +19,7 @@ const Lists: React.FC = () => {
       try {
         //const response = await axios.get('/api/my_lists'); // odrzuca przez brak ssl
         const response = await axios.get('https://localhost:443/api/my_lists'); 
+        console.log(response.data);
         const lists: List[] = response.data['hydra:member'] || []; // Użyj domyślnej pustej tablicy, jeśli 'hydra:member' jest undefined
         const formattedLists = lists.map((list: any) => ({
           id: list['@id'].split('/').pop(),
@@ -79,7 +80,7 @@ const Lists: React.FC = () => {
 
         <div className="lists">
           {userLists.map((list) => (
-            <div className="oneList" key={list.id} onClick={() => window.location.href = `list/${list.id}`}>
+            <div className="oneList" key={list.id} onClick={() => window.location.href = `listView/?id=${list.id}`}>
               {<div className="listIcon"><img src="/public/list.png" style={{ width: '70%' }} alt="List icon" /></div>}
               <div className="listData">
                 <div className="nazwa">{list.Name}</div>
