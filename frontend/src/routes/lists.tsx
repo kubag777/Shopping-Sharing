@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/global.css';
 import '../css/lists.css';
+import { useNavigate } from 'react-router-dom';
 
 interface List {
   id: string;
@@ -13,13 +14,18 @@ interface List {
 
 const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<List[]>([]);
+  const storedToken = sessionStorage.getItem('token');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
-        //const response = await axios.get('/api/my_lists'); // odrzuca przez brak ssl
-        const response = await axios.get('https://localhost:443/api/my_lists'); 
-        const lists: List[] = response.data['hydra:member'] || []; // Użyj domyślnej pustej tablicy, jeśli 'hydra:member' jest undefined
+        const response = await axios.get('https://localhost:443/api/my_listss',{
+          headers: {
+            Authorization: `Bearer ${storedToken}`
+          }
+        });
+        const lists: List[] = response.data['hydra:member'] || []; 
         const formattedLists = lists.map((list: any) => ({
           id: list['@id'].split('/').pop(),
           Name: list.Name,
@@ -79,7 +85,7 @@ const Lists: React.FC = () => {
 
         <div className="lists">
           {userLists.map((list) => (
-            <div className="oneList" key={list.id} onClick={() => window.location.href = `list/${list.id}`}>
+            <div className="oneList" key={list.id} onClick={() => navigate(`/list/${list.id}`)}>
               {<div className="listIcon"><img src="/public/list.png" style={{ width: '70%' }} alt="List icon" /></div>}
               <div className="listData">
                 <div className="nazwa">{list.Name}</div>

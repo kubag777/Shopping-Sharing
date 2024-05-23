@@ -3,6 +3,9 @@ import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
+  Routes,
+  Route,
+  Navigate,
 } from "react-router-dom";
 import "./index.css";
 import Root from "./routes/root";
@@ -13,39 +16,39 @@ import Lists from "./routes/lists";
 import ListView from "./routes/listView";
 import ProfilePage from "./routes/profile";
 
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-      {
-        path: "register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "myLists",
-        element: <Lists />,
-      },
-      {
-        path: "list/:id",
-        element: <ListView />,
-      },
-      {
-        path: "profile",
-        element: <ProfilePage />,
-      },
-    ],
-  },
-]);
-
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+  console.log('isLoggedIn:', isLoggedIn);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "login",
+          element: <LoginPage setIsLoggedIn={setIsLoggedIn} />,
+        },
+        {
+          path: "register",
+          element: <RegisterPage />,
+        },
+        {
+          path: "myLists",
+          element: isLoggedIn ? <Lists /> : <Navigate to="/login" />,
+        },
+        {
+          path: "list/:id",
+          element: isLoggedIn ? <ListView /> : <Navigate to="/login" />,
+        },
+        {
+          path: "profile",
+          element: isLoggedIn ? <ProfilePage /> : <Navigate to="/login" />,
+        },
+      ],
+    },
+  ]);
+
   return (
     <React.StrictMode>
       <RouterProvider router={router} />

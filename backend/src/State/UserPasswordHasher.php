@@ -27,9 +27,6 @@ final readonly class UserPasswordHasher implements ProcessorInterface
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): User
     {
-        error_log("TUTAJ");
-        error_log($data->getPlainPassword());
-        error_log($data->getEmail());
         if (!$data->getPlainPassword()) {
             return $this->processor->process($data, $operation, $uriVariables, $context);
         }

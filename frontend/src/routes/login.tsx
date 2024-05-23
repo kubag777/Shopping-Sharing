@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import '../css/login.css'; // Importowanie stylów CSS
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
-  const handleLogin = (event: React.FormEvent) => {
+interface LoginPageProps {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Tutaj dodasz logikę logowania
-    console.log('Logging in...');
+    setError(null); // Wyczyść bieżący błąd
+
+    try {
+      const response = await axios.post('https://localhost/auth', { email, password });
+      const token = response.data.token;
+      // Tutaj możesz przechowywać token JWT w stanie aplikacji React
+      sessionStorage.setItem('token', token);
+      console.log('Zalogowano pomyślnie. Token JWT:', token);
+      setIsLoggedIn(true);
+      navigate('/myLists');
+    } catch (error) {
+      console.error('Błąd logowania:', error);
+      setError('Nieprawidłowy email lub hasło.');
+    }
   };
 
   return (
@@ -18,11 +41,12 @@ const LoginPage = () => {
           Sign Up
         </button>
         <form className="login" onSubmit={handleLogin}>
-          <input name="email" type="text" placeholder="email@email.com" />
-          <input name="password" type="password" placeholder="password" />
+          <input name="email" type="text" placeholder="email@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input name="password" type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="submit" className="loginButton">
             LOGIN
           </button>
+          {error && <div style={{ color: 'red' }}>{error}</div>} {/* Wyświetl błąd, jeśli istnieje */}
         </form>
       </div>
       {/* <div className="forgot">
