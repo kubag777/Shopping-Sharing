@@ -21,7 +21,7 @@ class AuthenticationSuccessListener
             return;
         }
 
-        $userData = $this->serializer->serialize($user, 'json', ['groups' => ['user:read', 'user:roles']]);
+        $userData = $this->serializer->serialize($user, 'json', ['groups' => ['user:read', 'user:roles']]); // user roles mozna usunac
         $userData = json_decode($userData, true);
 
         $data['user'] = $userData;

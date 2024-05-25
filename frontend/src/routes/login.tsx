@@ -20,9 +20,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
     try {
       const response = await axios.post('https://localhost/auth', { email, password });
       const token = response.data.token;
-      // Tutaj możesz przechowywać token JWT w stanie aplikacji React
+      const user = response.data.user;
+      const userId = user.id;
       sessionStorage.setItem('token', token);
-      console.log('Zalogowano pomyślnie. Token JWT:', token);
+      sessionStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('userId', userId);
+      //console.log('Zalogowano pomyślnie. Token JWT:', token);
       setIsLoggedIn(true);
       navigate('/myLists');
     } catch (error) {
