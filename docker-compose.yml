@@ -26,6 +26,7 @@ services:
       - ./backend/frankenphp/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
       - caddy_data:/data
       - caddy_config:/config
+      - /app/vendor #usunąć do instalacji z composer i przebudować
     ports:
       # HTTP
       - target: 80

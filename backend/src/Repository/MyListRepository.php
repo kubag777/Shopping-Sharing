@@ -2,23 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\MyLists;
+use App\Entity\MyList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MyLists>
+ * @extends ServiceEntityRepository<MyList>
  *
- * @method MyLists|null find($id, $lockMode = null, $lockVersion = null)
- * @method MyLists|null findOneBy(array $criteria, array $orderBy = null)
- * @method MyLists[]    findAll()
- * @method MyLists[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MyList|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MyList|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MyList[]    findAll()
+ * @method MyList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MyListsRepository extends ServiceEntityRepository
+class MyListRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MyLists::class);
+        parent::__construct($registry, MyList::class);
     }
 
     //    /**

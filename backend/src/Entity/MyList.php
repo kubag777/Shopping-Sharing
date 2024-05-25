@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\MyListsRepository;
+use App\Repository\MyListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -11,9 +11,9 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Metadata\ApiResource;
 
-#[ORM\Entity(repositoryClass: MyListsRepository::class)]
+#[ORM\Entity(repositoryClass: MyListRepository::class)]
 #[ApiResource]
-class MyLists
+class MyList
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -24,7 +24,7 @@ class MyLists
     /**
      * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'myLists')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'myList')]
     private Collection $UserID;
 
     #[ORM\Column(length: 255)]
@@ -33,14 +33,14 @@ class MyLists
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $CreateDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ownedLists')]
+    #[ORM\ManyToOne(inversedBy: 'ownedList')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $OwnerUserID = null;
 
     /**
-     * @var Collection<int, ListFields>
+     * @var Collection<int, ListField>
      */
-    #[ORM\OneToMany(targetEntity: ListFields::class, mappedBy: 'ListID', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ListField::class, mappedBy: 'ListID', orphanRemoval: true)]
     private Collection $listFields;
 
     public function __construct()
@@ -115,14 +115,14 @@ class MyLists
     }
 
     /**
-     * @return Collection<int, ListFields>
+     * @return Collection<int, ListField>
      */
     public function getListFields(): Collection
     {
         return $this->listFields;
     }
 
-    public function addListField(ListFields $listField): static
+    public function addListField(ListField $listField): static
     {
         if (!$this->listFields->contains($listField)) {
             $this->listFields->add($listField);
@@ -132,7 +132,7 @@ class MyLists
         return $this;
     }
 
-    public function removeListField(ListFields $listField): static
+    public function removeListField(ListField $listField): static
     {
         if ($this->listFields->removeElement($listField)) {
             // set the owning side to null (unless already changed)

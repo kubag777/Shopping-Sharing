@@ -2,23 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\ListFields;
+use App\Entity\ListField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ListFields>
+ * @extends ServiceEntityRepository<ListField>
  *
- * @method ListFields|null find($id, $lockMode = null, $lockVersion = null)
- * @method ListFields|null findOneBy(array $criteria, array $orderBy = null)
- * @method ListFields[]    findAll()
- * @method ListFields[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ListField|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ListField|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ListField[]    findAll()
+ * @method ListField[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ListFieldsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ListFields::class);
+        parent::__construct($registry, ListField::class);
     }
 
     //    /**

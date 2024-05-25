@@ -10,7 +10,7 @@ use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ListFieldsRepository::class)]
 #[ApiResource]
-class ListFields
+class ListField
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -20,7 +20,7 @@ class ListFields
 
     #[ORM\ManyToOne(inversedBy: 'listFields')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?MyLists $ListID = null;
+    private ?MyList $ListID = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -43,12 +43,12 @@ class ListFields
         return $this->id;
     }
 
-    public function getListID(): ?MyLists
+    public function getListID(): ?MyList
     {
         return $this->ListID;
     }
 
-    public function setListID(?MyLists $ListID): static
+    public function setListID(?MyList $ListID): static
     {
         $this->ListID = $ListID;
 

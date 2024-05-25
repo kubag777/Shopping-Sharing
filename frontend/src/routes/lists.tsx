@@ -20,7 +20,7 @@ const Lists: React.FC = () => {
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
-        const response = await axios.get('https://localhost:443/api/my_listss',{
+        const response = await axios.get('https://localhost:443/api/my_lists',{
           headers: {
             Authorization: `Bearer ${storedToken}`
           }

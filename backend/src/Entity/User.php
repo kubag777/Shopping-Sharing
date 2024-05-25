@@ -70,21 +70,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plainPassword = null;
 
     /**
-     * @var Collection<int, MyLists>
+     * @var Collection<int, MyList>
      */
-    #[ORM\ManyToMany(targetEntity: MyLists::class, mappedBy: 'UserID')]
+    #[ORM\ManyToMany(targetEntity: MyList::class, mappedBy: 'UserID')]
     private Collection $myLists;
 
     /**
-     * @var Collection<int, MyLists>
+     * @var Collection<int, MyList>
      */
-    #[ORM\OneToMany(targetEntity: MyLists::class, mappedBy: 'OwnerUserID')]
+    #[ORM\OneToMany(targetEntity: MyList::class, mappedBy: 'OwnerUserID')]
     private Collection $ownedLists;
 
     /**
-     * @var Collection<int, ListFields>
+     * @var Collection<int, ListField>
      */
-    #[ORM\OneToMany(targetEntity: ListFields::class, mappedBy: 'CheckUser')]
+    #[ORM\OneToMany(targetEntity: ListField::class, mappedBy: 'CheckUser')]
     private Collection $listFieldsChecked;
 
     public function __construct()
@@ -180,14 +180,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, MyLists>
+     * @return Collection<int, MyList>
      */
     public function getMyLists(): Collection
     {
         return $this->myLists;
     }
 
-    public function addMyList(MyLists $myList): static
+    public function addMyList(MyList $myList): static
     {
         if (!$this->myLists->contains($myList)) {
             $this->myLists->add($myList);
@@ -197,7 +197,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeMyList(MyLists $myList): static
+    public function removeMyList(MyList $myList): static
     {
         if ($this->myLists->removeElement($myList)) {
             $myList->removeUserID($this);
@@ -207,14 +207,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, MyLists>
+     * @return Collection<int, MyList>
      */
     public function getOwnedLists(): Collection
     {
         return $this->ownedLists;
     }
 
-    public function addOwnedList(MyLists $ownedList): static
+    public function addOwnedList(MyList $ownedList): static
     {
         if (!$this->ownedLists->contains($ownedList)) {
             $this->ownedLists->add($ownedList);
@@ -224,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeOwnedList(MyLists $ownedList): static
+    public function removeOwnedList(MyList $ownedList): static
     {
         if ($this->ownedLists->removeElement($ownedList)) {
             // set the owning side to null (unless already changed)
@@ -237,14 +237,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, ListFields>
+     * @return Collection<int, ListField>
      */
     public function getListFieldsChecked(): Collection
     {
         return $this->listFieldsChecked;
     }
 
-    public function addListFieldsChecked(ListFields $listFieldsChecked): static
+    public function addListFieldsChecked(ListField $listFieldsChecked): static
     {
         if (!$this->listFieldsChecked->contains($listFieldsChecked)) {
             $this->listFieldsChecked->add($listFieldsChecked);
@@ -254,7 +254,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeListFieldsChecked(ListFields $listFieldsChecked): static
+    public function removeListFieldsChecked(ListField $listFieldsChecked): static
     {
         if ($this->listFieldsChecked->removeElement($listFieldsChecked)) {
             // set the owning side to null (unless already changed)
