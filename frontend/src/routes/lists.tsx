@@ -16,14 +16,15 @@ const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<List[]>([]);
   const storedToken = sessionStorage.getItem('token');
   const navigate = useNavigate();
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
-        const response = await axios.get('https://localhost:443/api/my_lists',{
+        const response = await axios.get(`https://localhost/api/my/userlists`, {
           headers: {
             Authorization: `Bearer ${storedToken}`
-          }
+          },
         });
         const lists: List[] = response.data['hydra:member'] || []; 
         const formattedLists = lists.map((list: any) => ({

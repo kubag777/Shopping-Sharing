@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MyListRepository;
+use App\State\Provider\UserListsProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,9 +11,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 
 #[ORM\Entity(repositoryClass: MyListRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/my/userlists',
+            provider: UserListsProvider::class
+        ),
+    ],
+)]
 class MyList
 {
     #[ORM\Id]
