@@ -21,8 +21,6 @@ readonly class UserListsProvider implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|null|object
     {
         $currentUser = $this->security->getUser();
-        error_log($currentUser->getId());
-        error_log("here");
         $userId = $currentUser->getId();
         if ($currentUser) {
             return new Paginator($this->repository->findByUserId($userId));

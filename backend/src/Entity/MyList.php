@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MyListRepository;
 use App\State\Provider\UserListsProvider;
+use App\State\Processor\MyListProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -12,6 +13,8 @@ use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MyListRepository::class)]
 #[ApiResource(
@@ -20,7 +23,15 @@ use ApiPlatform\Metadata\GetCollection;
             uriTemplate: '/my/userlists',
             provider: UserListsProvider::class
         ),
+        new Post(
+            uriTemplate: '/my/addList',
+            denormalizationContext: ['groups' => ['mylist:write']],
+            validationContext: ['groups' => ['mylist:write']],
+            processor: MyListProcessor::class
+        ),
     ],
+    denormalizationContext: ['groups' => ['mylist:write']],
+    normalizationContext: ['groups' => ['mylist:read']]
 )]
 class MyList
 {
@@ -37,6 +48,7 @@ class MyList
     private Collection $UserID;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['mylist:read', 'mylist:write'])]
     private ?string $Name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -44,6 +56,7 @@ class MyList
 
     #[ORM\ManyToOne(inversedBy: 'ownedList')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['mylist:read', 'mylist:write'])]
     private ?User $OwnerUserID = null;
 
     /**

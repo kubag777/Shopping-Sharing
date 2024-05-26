@@ -16,7 +16,6 @@ const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<List[]>([]);
   const storedToken = sessionStorage.getItem('token');
   const navigate = useNavigate();
-  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     const fetchUserLists = async () => {
@@ -53,15 +52,28 @@ const Lists: React.FC = () => {
   const handleAddNewList = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    formData.append('user_id', getUserId().toString()); // Zakładając, że masz funkcję getUserId()
-
+    const name = formData.get('Name') as string;
+    const friendId = formData.get('friend') as string;
+    const ownerUserId = getUserId();
+    const friendApiUrl = `/api/users/${friendId}`;
+    const ownerUserApiUrl = `/api/users/${ownerUserId}`;
+  
     try {
-      const response = await fetch('/api/addNewList', {
-        method: 'POST',
-        body: formData,
-      });
+      console.log(name, ownerUserApiUrl);
+      const headers = {
+        'Content-Type': 'application/ld+json',
+      };
+      console.log('ownerUserApiUrl:', ownerUserApiUrl);
 
-      if (response.ok) {
+      const response = await axios.post('https://localhost/api/my/addList', 
+        { Name: name, OwnerUserID: ownerUserApiUrl },
+        { headers:{
+            'Content-Type': 'application/ld+json'
+          }
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
         window.location.reload();
       } else {
         console.error('Błąd dodawania listy.');
@@ -71,9 +83,12 @@ const Lists: React.FC = () => {
     }
   };
 
-  const getUserId = (): number => {
-    // Implementacja funkcji getUserId
-    return 0; // Zastąp odpowiednią logiką
+  const getUserId = (): string => {
+    const userId = sessionStorage.getItem('userId');
+    if(userId) {
+      return userId;
+    }
+    return "";
   };
 
   return (
@@ -98,7 +113,7 @@ const Lists: React.FC = () => {
 
       <div className="newListWnd">
         <form onSubmit={handleAddNewList} className="addNewList">
-          <input type="text" name="listName" placeholder="Nazwa Listy" />
+          <input type="text" name="Name" placeholder="Nazwa Listy" />
           <input type="text" name="friend" placeholder="ID znajomego" />
           <input type="submit" value="Dodaj" />
         </form>
