@@ -16,6 +16,7 @@ const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<List[]>([]);
   const storedToken = sessionStorage.getItem('token');
   const navigate = useNavigate();
+  const [updateNeeded, setUpdateNeeded] = useState(true);
 
   useEffect(() => {
     const fetchUserLists = async () => {
@@ -38,9 +39,11 @@ const Lists: React.FC = () => {
       }
     };
     
-    
-    fetchUserLists();
-  }, []);
+    if(updateNeeded){
+      fetchUserLists();
+      setUpdateNeeded(false);
+    }
+  }, [updateNeeded]);
 
   const addNewListWnd = () => {
     const newListWnd = document.querySelector('.newListWnd');
@@ -50,6 +53,7 @@ const Lists: React.FC = () => {
   };
 
   const handleAddNewList = async (e: React.FormEvent) => {
+    addNewListWnd();
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const name = formData.get('Name') as string;
@@ -71,8 +75,8 @@ const Lists: React.FC = () => {
           }
         }
       );
-      if (response.status === 200) {
-        window.location.reload();
+      if (response.status === 201) {
+        setUpdateNeeded(true);
       } else {
         console.error('Błąd dodawania listy.');
       }

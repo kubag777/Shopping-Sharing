@@ -53,10 +53,10 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
     <div className="container">
       <div className="overlap-group">
         <div className="page-header">
-          <div className="register-text">Register</div>
+          <div className="register-text">Create account</div>
         </div>
         <button type="button" className="logIn" onClick={handleLoginClick}>
-          Login
+          LOGIN
         </button>
         <form className="register" action="register" method="POST" onSubmit={handleSubmit}>
           <input name="email" type="text" placeholder="email@email.com" value={formData.email} onChange={handleChange} />

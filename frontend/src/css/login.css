@@ -66,6 +66,7 @@
       font-style: normal;
       line-height: normal;
       font-weight: 600;
+      border: #eef14d solid 2px;
   }
   
   form.login button {
@@ -82,6 +83,7 @@
     font-style: normal;
     line-height: normal;
     font-weight: 600;
+    border: black solid 2px;
   }
   
   .forgot {
@@ -158,13 +160,13 @@
     form.login input[type="text"],
     form.login input[type="password"] {
       margin: 3px 2%; /* Zmniejszenie marginesu */
-      box-sizing: border-box;
       background-color: #999999;
       border-radius: 50px; /* Zmniejszenie zaokrąglenia narożników */
       text-align: center;
       font-size: 4vh; /* Dostosowanie rozmiaru czcionki */
       font-weight: 600;
       height: 10vh;
+      border: #eef14d solid 2px;
     }
     
     form.login button {

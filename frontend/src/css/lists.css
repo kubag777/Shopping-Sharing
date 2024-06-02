@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     color: #eef14d;
+    gap: 2vh;
 }
 
 .headerClass{
@@ -110,8 +111,8 @@
 }
 
 .newListWnd {
-    background: #eef14d;
-    border: black solid 2px;
+    background: #17181c;
+    border: #eef14d solid 2px;
     border-radius: 20px;
     display: none;
     width: 400px;
@@ -151,7 +152,7 @@
     font-style: normal;
     line-height: normal;
     font-weight: 600;
-    border: black solid 2px;
+    border: #eef14d solid 2px;
 }
 
 .newListWnd>form>input[type="submit"] {

@@ -33,7 +33,6 @@ const ProfilePage: React.FC = () => {
                 <div className="info">
                     <h1>{`${userName} ${userSurname}`}</h1>
                     <h1>Twoje UUID:</h1><h3> {userId.toString()}</h3>
-                    <h3>Jakiś opis</h3>
                 </div>
             </div>
         </div>

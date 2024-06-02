@@ -2,9 +2,10 @@ import { Outlet, Link } from "react-router-dom";
 
 interface RootProps {
   isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 
-const Root: React.FC<RootProps> = ({ isLoggedIn }) => {
+const Root: React.FC<RootProps> = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <div id="sidebar">
@@ -29,14 +30,17 @@ const Root: React.FC<RootProps> = ({ isLoggedIn }) => {
                 </li>
                 <li className="logoutButton">
                   <Link to="/login" onClick={() => {
-                    // Tu możesz dodać logikę wylogowania
+                    // Logika wylogowania
                     sessionStorage.clear();
+                    setIsLoggedIn(false);
                   }}>Wyloguj</Link>
                 </li>
               </>
             )}
           </ul>
+          <img src="public/logo.jpg" alt="Logo" className="sidebarLogo" />
         </nav>
+
       </div>
       <div id="detail">
         <Outlet />

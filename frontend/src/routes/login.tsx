@@ -37,10 +37,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
     <div className="container">
       <div className="overlap-group">
         <div className="page-header">
-          <div className="login-text">Log In</div>
+          <div className="login-text">Log into</div>
         </div>
         <button type="button" onClick={() => window.location.href='register'} className="SignUp">
-          Sign Up
+          SIGN UP
         </button>
         <form className="login" onSubmit={handleLogin}>
           <input name="email" type="text" placeholder="email@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />

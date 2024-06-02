@@ -21,7 +21,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root isLoggedIn={isLoggedIn} />,
+      element: <Root isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />,
       errorElement: <ErrorPage />,
       children: [
         {

@@ -87,7 +87,18 @@ const ListView = () => {
         }
     }, [updateNeeded]);
 
+    useEffect(() => {
+        if (id) {
+            const interval = setInterval(() => {
+                fetchListById(id);
+            }, 5000);
+
+            return () => clearInterval(interval);
+        }
+    }, [id]);
+
     const addNewField = async (e: React.FormEvent) => {
+        addNewFieldWnd();
         e.preventDefault();
         const data = new FormData(e.target as HTMLFormElement);
         const userId = sessionStorage.getItem('userId');
