@@ -16,30 +16,24 @@ The "Shopping Sharing" website allows users to collaboratively create and manage
 
 ## Technologies
 
-Technologies: Symfony, React, TypeScript
-Database: PostgreSQP
+Technologies: Symfony, React, TypeScript, PostgreSQL
 
 ## Usage
 
 1. Registration and Login:
 To use the site's features, you need to create an account or log in if you already have one.
-![Alt text](/ScreenShots/login.PNG?raw=true "Optional Title")
-![Alt text](/ScreenShots/register.PNG?raw=true "Optional Title")
 
 2. Creating a New Shopping List:
 After logging in, the user has access to the list management panel, where they can create a new shopping list or open existing one.
-![Alt text](/ScreenShots/lists.PNG?raw=true "Optional Title")
 
 3. Adding Products:
 Once a list is created, users can add products by entering their names.
-![Alt text](/ScreenShots/addingField.PNG?raw=true "Optional Title")
 
 4. Sharing Lists:
 Created lists can are shared with person you choose by entering their user id.
 
 5. Marking Purchased Products:
 Each participant can mark products on the list as purchased, updating the product's status for other users.
-![Alt text](/ScreenShots/listView.PNG?raw=true "Optional Title")
 
 ## Features
 
