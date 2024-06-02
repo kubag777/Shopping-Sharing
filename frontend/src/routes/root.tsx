@@ -1,27 +1,40 @@
-
 import { Outlet, Link } from "react-router-dom";
 
-export default function Root() {
+interface RootProps {
+  isLoggedIn: boolean;
+}
+
+const Root: React.FC<RootProps> = ({ isLoggedIn }) => {
   return (
     <>
-      <div id="sidebar">  
+      <div id="sidebar">
         <nav>
           <ul>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-            <li>
-              <Link to="/myLists">Listy</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profil</Link>
-            </li>
-            <li className="logoutButton">
-              <Link to="/logout">Wyloguj</Link>
-            </li> 
+            {!isLoggedIn ? (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/myLists">Listy</Link>
+                </li>
+                <li>
+                  <Link to="/profile">Profil</Link>
+                </li>
+                <li className="logoutButton">
+                  <Link to="/login" onClick={() => {
+                    // Tu możesz dodać logikę wylogowania
+                    sessionStorage.clear();
+                  }}>Wyloguj</Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </div>
@@ -30,4 +43,6 @@ export default function Root() {
       </div>
     </>
   );
-}
+};
+
+export default Root;

@@ -29,7 +29,7 @@ const ProfilePage: React.FC = () => {
     return (
         <div>
             <div className="profileMainFrame">
-                <div className="picture"><img src="/public/img/profile.jpg" alt="Profile" /></div>
+                <div className="picture"><img src="../../public/profile-picture.jpg" alt="Profile" className="profileimg"/></div>
                 <div className="info">
                     <h1>{`${userName} ${userSurname}`}</h1>
                     <h1>Twoje UUID:</h1><h3> {userId.toString()}</h3>

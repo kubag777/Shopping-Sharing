@@ -23,7 +23,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
       const user = response.data.user;
       const userId = user.id;
       sessionStorage.setItem('token', token);
-      sessionStorage.setItem('user', JSON.stringify(user));
       sessionStorage.setItem('userId', userId);
       //console.log('Zalogowano pomyślnie. Token JWT:', token);
       setIsLoggedIn(true);

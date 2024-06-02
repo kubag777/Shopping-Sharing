@@ -3,8 +3,6 @@ import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
-  Routes,
-  Route,
   Navigate,
 } from "react-router-dom";
 import "./index.css";
@@ -19,10 +17,11 @@ import ProfilePage from "./routes/profile";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
   console.log('isLoggedIn:', isLoggedIn);
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Root />,
+      element: <Root isLoggedIn={isLoggedIn} />,
       errorElement: <ErrorPage />,
       children: [
         {

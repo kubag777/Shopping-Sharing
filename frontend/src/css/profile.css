@@ -9,6 +9,7 @@
     margin-top: 10vh;
     height: calc(80vh - 100px);
     color: black;
+    border: solid 3px black;
 }
 
 .picture{
@@ -22,14 +23,13 @@
     width: calc(14vw + 14vh);
     height: calc(14vw + 14vh);
     border-radius: 100%;
-    border: solid 1px black;
+    border: solid 3px black;
 }
 
 .info{
     width: 55vw;
     display: flex;
     flex-direction: column;
-    border: solid 2px black;
     border-radius: 50px;
     padding: 1vh 1vw;
     height: calc(80vh - 110px);
