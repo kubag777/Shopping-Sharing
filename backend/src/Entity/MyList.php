@@ -14,6 +14,7 @@ use Symfony\Component\Uid\Uuid;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Get;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MyListRepository::class)]
@@ -22,6 +23,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             uriTemplate: '/my/userlists',
             provider: UserListsProvider::class
+        ),
+        new Get(
+            uriTemplate: '/my/list/{id}',
+            requirements: ['id' => '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'],
+            normalizationContext: ['groups' => ['mylist:read']]
         ),
         new Post(
             uriTemplate: '/my/addList',
@@ -44,7 +50,16 @@ class MyList
     /**
      * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'myList')]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'myLists')]
+    #[ORM\JoinTable(name: 'my_list_user',
+        joinColumns: [
+            new ORM\JoinColumn(name: 'my_list_id', referencedColumnName: 'id')
+        ],
+        inverseJoinColumns: [
+            new ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')
+        ]
+    )]
+    #[Groups(['mylist:read', 'mylist:write'])]
     private Collection $UserID;
 
     #[ORM\Column(length: 255)]
@@ -54,7 +69,7 @@ class MyList
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $CreateDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'ownedList')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ownedLists')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['mylist:read', 'mylist:write'])]
     private ?User $OwnerUserID = null;
@@ -63,6 +78,7 @@ class MyList
      * @var Collection<int, ListField>
      */
     #[ORM\OneToMany(targetEntity: ListField::class, mappedBy: 'ListID', orphanRemoval: true)]
+    #[Groups(['mylist:read'])]
     private Collection $listFields;
 
     public function __construct()

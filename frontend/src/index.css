@@ -193,6 +193,7 @@ i {
 
 #sidebar li {
   margin: 0.25rem 0;
+  display: block;
 }
 
 #sidebar nav a {
@@ -368,4 +369,24 @@ i {
 
 #error-page i {
   color: #eef14d;
+}
+
+#sidebar li.logoutButton {
+  margin-top: auto !important; /* Przycisk wylogowania będzie na samym dole */
+}
+
+#sidebar li.logoutButton a {
+  background-color: red !important; /* Ważny styl */
+  color: black !important; /* Ważny styl */
+  padding: 8px;
+  display: block;
+  text-decoration: none;
+}
+
+#sidebar li.logoutButton a:hover {
+  background-color: black !important; /* Ważny styl */
+  color: white !important; /* Ważny styl */
+  padding: 8px;
+  display: block;
+  text-decoration: none;
 }

@@ -59,20 +59,18 @@ const Lists: React.FC = () => {
     const ownerUserApiUrl = `/api/users/${ownerUserId}`;
   
     try {
-      console.log(name, ownerUserApiUrl);
-      const headers = {
-        'Content-Type': 'application/ld+json',
-      };
-      console.log('ownerUserApiUrl:', ownerUserApiUrl);
-
       const response = await axios.post('https://localhost/api/my/addList', 
-        { Name: name, OwnerUserID: ownerUserApiUrl },
+        { Name: name, OwnerUserID: ownerUserApiUrl, 
+          UserID: [
+            ownerUserApiUrl,
+            friendApiUrl
+          ]
+        },
         { headers:{
             'Content-Type': 'application/ld+json'
           }
         }
       );
-      console.log(response);
       if (response.status === 200) {
         window.location.reload();
       } else {

@@ -23,9 +23,6 @@ class MyListProcessor implements ProcessorInterface
             if (!$data instanceof MyList) {
                 throw new \RuntimeException('Expected an instance of MyList');
             }
-            //error_log("tutaj");
-            //error_log(json_encode($data));
-
             // Sprawdź czy OwnerUserID jest ustawiony
             $ownerUserId = $data->getOwnerUserID();
             //error_log($ownerUserId);
