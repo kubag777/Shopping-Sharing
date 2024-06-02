@@ -1,32 +1,52 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
-export default function Root() {
-    return (
-      <>
-        <div id="sidebar">  
-          <nav>
-            <ul>
-              <li>
-                <a href={`/login`}>Login</a>
-              </li>
-              <li>
-                <a href={`/register`}>Register</a>
-              </li>
-              <li>
-                <a href={`/myLists`}>Listy</a>
-              </li>
-              <li>
-                <a href={`/list/123`}>Konkretna Lista</a>
-              </li>
-              <li>
-                <a href={`/profile`}>Profil</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div id="detail">
-          <Outlet />
-        </div>
-      </>
-    );
-  }
+interface RootProps {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+}
+
+const Root: React.FC<RootProps> = ({ isLoggedIn, setIsLoggedIn }) => {
+  return (
+    <>
+      <div id="sidebar">
+        <nav>
+          <ul>
+            {!isLoggedIn ? (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/myLists">Listy</Link>
+                </li>
+                <li>
+                  <Link to="/profile">Profil</Link>
+                </li>
+                <li className="logoutButton">
+                  <Link to="/login" onClick={() => {
+                    // Logika wylogowania
+                    sessionStorage.clear();
+                    setIsLoggedIn(false);
+                  }}>Wyloguj</Link>
+                </li>
+              </>
+            )}
+          </ul>
+          <img src="public/logo.jpg" alt="Logo" className="sidebarLogo" />
+        </nav>
+
+      </div>
+      <div id="detail">
+        <Outlet />
+      </div>
+    </>
+  );
+};
+
+export default Root;

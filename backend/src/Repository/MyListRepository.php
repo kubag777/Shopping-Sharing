@@ -2,23 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\MyLists;
+use App\Entity\MyList;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
- * @extends ServiceEntityRepository<MyLists>
+ * @extends ServiceEntityRepository<MyList>
  *
- * @method MyLists|null find($id, $lockMode = null, $lockVersion = null)
- * @method MyLists|null findOneBy(array $criteria, array $orderBy = null)
- * @method MyLists[]    findAll()
- * @method MyLists[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MyList|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MyList|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MyList[]    findAll()
+ * @method MyList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MyListsRepository extends ServiceEntityRepository
+class MyListRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MyLists::class);
+        parent::__construct($registry, MyList::class);
     }
 
     //    /**
@@ -45,4 +47,21 @@ class MyListsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+  
+    public function findByUserId($userId)
+    {
+        $queryBuilder = $this->createQueryBuilder('ml');
+    
+        $queryBuilder->join('ml.UserID', 'u')
+                     ->where('u.id = :userId')
+                     ->setParameter('userId', $userId)
+                     ->setFirstResult(0)
+                     ->setMaxResults(100);
+    
+        $query = $queryBuilder->getQuery();
+
+        return new Paginator($query);
+    }
+    
 }

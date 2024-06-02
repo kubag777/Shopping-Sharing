@@ -58,21 +58,18 @@ button.deleteList.visible {
     height: 75vh;
     border-radius: 50px;
     margin-top: 3vh;
-}
-
-.grid-container {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(5, calc(6px + 10vh));
 }
 
 @media screen and (max-width: 800px) {
-    .grid-container {
+    .fields {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }
 
-/* .oneList{
+.oneField{
     display: flex;
     flex-direction: row;
     justify-content:space-between;
@@ -81,17 +78,35 @@ button.deleteList.visible {
     background: #17181c;
     overflow: hidden;
     cursor: pointer;
-    height: 10vh;
-    width: 90vw;
-    margin: 1vh 5%;
+    height: 5vh;
+    width: 29vw;
+    margin: 1vh 1vw;
     color: #eef14d;
     font-size: calc(8px + 2vh);
     padding: 0 10px;
-} */
+}
+
+.customCheckbox {
+    padding: 0; /* Usunięcie paddingu */
+  }
+  
+  .customCheckbox .MuiSvgIcon-root {
+    border-radius: 50%; /* Zaokrąglenie kształtu */
+    background-color: transparent; /* Przezroczyste tło */
+    margin: 0; /* Usunięcie marginesu */
+    color: #eef14d;
+  }
+  
+  .customCheckbox.Mui-checked .MuiSvgIcon-root {
+    border-radius: 50%; /* Zaokrąglenie kształtu po zaznaczeniu */
+    background-color: transparent; /* Przezroczyste tło */
+  }
+  
+
 
 .newFieldWnd {
-    background: #eef14d;
-    border: black solid 2px;
+    background: #17181c;
+    border: #eef14d solid 2px;
     border-radius: 20px;
     display: none;
     width: 400px;
@@ -131,7 +146,11 @@ button.deleteList.visible {
     font-style: normal;
     line-height: normal;
     font-weight: 600;
-    border: black solid 2px;
+    border: #eef14d solid 2px;
+}
+
+.black {
+    color: black;
 }
 
 .newFieldWnd>form>input[type="submit"]{

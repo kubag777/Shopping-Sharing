@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/global.css';
 import '../css/lists.css';
+import { useNavigate } from 'react-router-dom';
 
 interface List {
   id: string;
@@ -13,13 +14,19 @@ interface List {
 
 const Lists: React.FC = () => {
   const [userLists, setUserLists] = useState<List[]>([]);
+  const storedToken = sessionStorage.getItem('token');
+  const navigate = useNavigate();
+  const [updateNeeded, setUpdateNeeded] = useState(true);
 
   useEffect(() => {
     const fetchUserLists = async () => {
       try {
-        //const response = await axios.get('/api/my_lists'); // odrzuca przez brak ssl
-        const response = await axios.get('https://localhost:443/api/my_lists'); 
-        const lists: List[] = response.data['hydra:member'] || []; // Użyj domyślnej pustej tablicy, jeśli 'hydra:member' jest undefined
+        const response = await axios.get(`https://localhost/api/my/userlists`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`
+          },
+        });
+        const lists: List[] = response.data['hydra:member'] || []; 
         const formattedLists = lists.map((list: any) => ({
           id: list['@id'].split('/').pop(),
           Name: list.Name,
@@ -32,9 +39,11 @@ const Lists: React.FC = () => {
       }
     };
     
-    
-    fetchUserLists();
-  }, []);
+    if(updateNeeded){
+      fetchUserLists();
+      setUpdateNeeded(false);
+    }
+  }, [updateNeeded]);
 
   const addNewListWnd = () => {
     const newListWnd = document.querySelector('.newListWnd');
@@ -44,18 +53,30 @@ const Lists: React.FC = () => {
   };
 
   const handleAddNewList = async (e: React.FormEvent) => {
+    addNewListWnd();
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
-    formData.append('user_id', getUserId().toString()); // Zakładając, że masz funkcję getUserId()
-
+    const name = formData.get('Name') as string;
+    const friendId = formData.get('friend') as string;
+    const ownerUserId = getUserId();
+    const friendApiUrl = `/api/users/${friendId}`;
+    const ownerUserApiUrl = `/api/users/${ownerUserId}`;
+  
     try {
-      const response = await fetch('/api/addNewList', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        window.location.reload();
+      const response = await axios.post('https://localhost/api/my/addList', 
+        { Name: name, OwnerUserID: ownerUserApiUrl, 
+          UserID: [
+            ownerUserApiUrl,
+            friendApiUrl
+          ]
+        },
+        { headers:{
+            'Content-Type': 'application/ld+json'
+          }
+        }
+      );
+      if (response.status === 201) {
+        setUpdateNeeded(true);
       } else {
         console.error('Błąd dodawania listy.');
       }
@@ -64,9 +85,12 @@ const Lists: React.FC = () => {
     }
   };
 
-  const getUserId = (): number => {
-    // Implementacja funkcji getUserId
-    return 0; // Zastąp odpowiednią logiką
+  const getUserId = (): string => {
+    const userId = sessionStorage.getItem('userId');
+    if(userId) {
+      return userId;
+    }
+    return "";
   };
 
   return (
@@ -79,7 +103,7 @@ const Lists: React.FC = () => {
 
         <div className="lists">
           {userLists.map((list) => (
-            <div className="oneList" key={list.id} onClick={() => window.location.href = `list/${list.id}`}>
+            <div className="oneList" key={list.id} onClick={() => navigate(`/list/${list.id}`)}>
               {<div className="listIcon"><img src="/public/list.png" style={{ width: '70%' }} alt="List icon" /></div>}
               <div className="listData">
                 <div className="nazwa">{list.Name}</div>
@@ -91,7 +115,7 @@ const Lists: React.FC = () => {
 
       <div className="newListWnd">
         <form onSubmit={handleAddNewList} className="addNewList">
-          <input type="text" name="listName" placeholder="Nazwa Listy" />
+          <input type="text" name="Name" placeholder="Nazwa Listy" />
           <input type="text" name="friend" placeholder="ID znajomego" />
           <input type="submit" value="Dodaj" />
         </form>

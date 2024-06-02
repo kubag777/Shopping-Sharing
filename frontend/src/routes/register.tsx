@@ -9,7 +9,7 @@ interface RegisterProps {
 }
 
 const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = '' */}) => {
-  const [formData, setFormData] = useState({ email, /*name, surname,*/ password: '' });
+  const [formData, setFormData] = useState({ email, /*name, surname,*/ plainPassword: '' });
 
 
   
@@ -18,7 +18,7 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
   };
   
   const handleSubmit = async (event: React.FormEvent) => {
-    console.log(JSON.stringify({ ...formData, plainPassword: formData.password }));
+    console.log(JSON.stringify({ ...formData }));
     event.preventDefault();
     // Obsługa logiki rejestracji, np. wywołanie API
     try {
@@ -27,7 +27,7 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
         headers: {
           'Content-Type': 'application/ld+json'
         },
-        body: JSON.stringify({ ...formData, plainPassword: formData.password })
+        body: JSON.stringify({...formData})
       });
       if (response.ok) {
         window.location.href = 'myLists';
@@ -53,16 +53,16 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
     <div className="container">
       <div className="overlap-group">
         <div className="page-header">
-          <div className="register-text">Register</div>
+          <div className="register-text">Create account</div>
         </div>
         <button type="button" className="logIn" onClick={handleLoginClick}>
-          Login
+          LOGIN
         </button>
         <form className="register" action="register" method="POST" onSubmit={handleSubmit}>
           <input name="email" type="text" placeholder="email@email.com" value={formData.email} onChange={handleChange} />
           {/* <input name="name" type="text" placeholder="Name" value={formData.name} onChange={handleChange} /> */}
           {/* <input name="surname" type="text" placeholder="Surname" value={formData.surname} onChange={handleChange} /> */}
-          <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+          <input name="plainPassword" type="password" placeholder="Password" value={formData.plainPassword} onChange={handleChange} />
           <button type="submit">REGISTER</button>
         </form>
       </div>
