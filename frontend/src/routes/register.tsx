@@ -20,7 +20,6 @@ const Register: React.FC<RegisterProps> = ({ email = '', /*name = '', surname = 
   const handleSubmit = async (event: React.FormEvent) => {
     console.log(JSON.stringify({ ...formData }));
     event.preventDefault();
-    // Obsługa logiki rejestracji, np. wywołanie API
     try {
       const response = await fetch('https://localhost:443/api/users', {
         method: 'POST',

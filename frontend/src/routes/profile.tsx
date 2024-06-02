@@ -3,14 +3,13 @@ import '../css/global.css';
 import '../css/profile.css';
 
 const ProfilePage: React.FC = () => {
-    // Simulating the PHP code logic for fetching user data
     const getName = () => {
-        // Replace with actual logic to get user name
+        // TODO
         return "Jakub";
     };
 
     const getSurname = () => {
-        // Replace with actual logic to get user surname
+        // TODO
         return "Test";
     };
 

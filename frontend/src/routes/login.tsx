@@ -15,7 +15,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    setError(null); // Wyczyść bieżący błąd
 
     try {
       const response = await axios.post('https://localhost/auth', { email, password });
@@ -24,12 +23,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
       const userId = user.id;
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('userId', userId);
-      //console.log('Zalogowano pomyślnie. Token JWT:', token);
       setIsLoggedIn(true);
       navigate('/myLists');
     } catch (error) {
-      console.error('Błąd logowania:', error);
       setError('Nieprawidłowy email lub hasło.');
+      console.error('Błąd logowania:', error);
     }
   };
 
@@ -48,12 +46,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsLoggedIn }) => {
           <button type="submit" className="loginButton">
             LOGIN
           </button>
-          {error && <div style={{ color: 'red' }}>{error}</div>} {/* Wyświetl błąd, jeśli istnieje */}
+          {error && <div style={{ color: 'red' }}>{error}</div>}
         </form>
       </div>
-      {/* <div className="forgot">
-        <a href="">Forgot your password?</a>
-      </div> */}
     </div>
   );
 };

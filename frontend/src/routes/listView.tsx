@@ -27,7 +27,7 @@ interface MyList {
 }
 
 const ListView = () => {
-    const { id } = useParams<{ id: string }>(); // odczytanie ID
+    const { id } = useParams<{ id: string }>();
     const [list, setList] = useState<MyList | null>(null);
     const [updateNeeded, setUpdateNeeded] = useState(true);
 
@@ -38,7 +38,7 @@ const ListView = () => {
             try {
                 const response = await axios.patch(`https://localhost/api/list_fields/${fieldId}`, 
                     {
-                        checked: list.listFields[index].checked//updatedCheckedState[index]
+                        checked: list.listFields[index].checked
                     },
                     {
                         headers: {
@@ -47,23 +47,21 @@ const ListView = () => {
                     }
                 );
                 if (response.status === 200) {
-                    console.log('Checkbox state updated successfully.');
                     setUpdateNeeded(true);
                 } else {
-                    console.error('Error updating checkbox state.');
+                    console.error('Błąd zmiany stanu');
                 }
             } catch (error) {
-                console.error('Network error:', error);
+                console.error('Błąd sieci:', error);
             }
         }
     };
 
     const fetchListById = async (listId: string) => {
         try {
-            console.log(`Fetching list with ID: ${listId}`);
             const response = await axios.get(`https://localhost/api/my/list/${listId}`);
             if (response.status !== 200) {
-                throw new Error('Network response was not ok');
+                throw new Error('Nie udało się odczytać listy');
             }
             const data = response.data;
             // Pobranie pełnych informacji o polach na podstawie URI
@@ -72,9 +70,8 @@ const ListView = () => {
                 return fieldResponse.data;
             });
             const fieldsData = await Promise.all(fieldsDataPromises);
-            // Zastąpienie identyfikatorów URI pełnymi danymi pól
             const updatedListData = { ...data, listFields: fieldsData };
-            setList(updatedListData);  // aktualizacja stanu komponentu z otrzymanymi danymi listy
+            setList(updatedListData);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -92,7 +89,6 @@ const ListView = () => {
             const interval = setInterval(() => {
                 fetchListById(id);
             }, 5000);
-
             return () => clearInterval(interval);
         }
     }, [id]);
@@ -120,7 +116,6 @@ const ListView = () => {
                     }
                 );
                 if (response.status === 201) {
-                    console.log('Field added successfully, refreshing list...');
                     setUpdateNeeded(true);
                 } else {
                     console.error('Błąd dodawania listy.');
@@ -143,7 +138,7 @@ const ListView = () => {
         <div>
             <div className="mainFrame">
                 <div className="header">
-                    <button className="deleteList" type="button" /*onClick={deleteList}*/>
+                    <button className="deleteList" type="button">
                         Usuń listę
                     </button>
                     <span>{list?.Name}</span>
@@ -162,7 +157,6 @@ const ListView = () => {
                                     checkedIcon={<CheckCircleIcon />}
                                     checked={list.listFields[index].checked}
                                     onChange={() => handleCheckboxChange(index)}
-                                    // dodać wysyłanie do bazy zmiany checkboxa
                                 />
                             </div>
 

@@ -30,7 +30,6 @@ const Root: React.FC<RootProps> = ({ isLoggedIn, setIsLoggedIn }) => {
                 </li>
                 <li className="logoutButton">
                   <Link to="/login" onClick={() => {
-                    // Logika wylogowania
                     sessionStorage.clear();
                     setIsLoggedIn(false);
                   }}>Wyloguj</Link>
@@ -40,7 +39,6 @@ const Root: React.FC<RootProps> = ({ isLoggedIn, setIsLoggedIn }) => {
           </ul>
           <img src="public/logo.jpg" alt="Logo" className="sidebarLogo" />
         </nav>
-
       </div>
       <div id="detail">
         <Outlet />

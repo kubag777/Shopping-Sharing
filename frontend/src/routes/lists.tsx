@@ -100,7 +100,6 @@ const Lists: React.FC = () => {
           <span>Twoje listy</span>
           <button type="button" onClick={addNewListWnd}><div className="addNew">+</div></button>
         </div>
-
         <div className="lists">
           {userLists.map((list) => (
             <div className="oneList" key={list.id} onClick={() => navigate(`/list/${list.id}`)}>
